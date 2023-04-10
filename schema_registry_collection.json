@@ -1,0 +1,379 @@
+{
+	"info": {
+		"_postman_id": "5cb295b2-4ad7-4660-ad77-4b8e8ef903c7",
+		"name": "Schema Registry",
+		"description": "Collection of most useful Schema Registry API handlers to manage schemas within it",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "14837719"
+	},
+	"item": [
+		{
+			"name": "List subjects",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{SCHEMA_REGISTRY_BASE_URL}}/subjects",
+					"host": [
+						"{{SCHEMA_REGISTRY_BASE_URL}}"
+					],
+					"path": [
+						"subjects"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Register schema for a subject",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/vnd.schemaregistry.v1+json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{}"
+				},
+				"url": {
+					"raw": "{{SCHEMA_REGISTRY_BASE_URL}}/subjects/:subject/versions",
+					"host": [
+						"{{SCHEMA_REGISTRY_BASE_URL}}"
+					],
+					"path": [
+						"subjects",
+						":subject",
+						"versions"
+					],
+					"variable": [
+						{
+							"key": "subject",
+							"value": "",
+							"description": "Subject name, usually <topic-name>-value or <topic-name>-key"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "List schema versions for a subject",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{SCHEMA_REGISTRY_BASE_URL}}/subjects/:subject/versions",
+					"host": [
+						"{{SCHEMA_REGISTRY_BASE_URL}}"
+					],
+					"path": [
+						"subjects",
+						":subject",
+						"versions"
+					],
+					"variable": [
+						{
+							"key": "subject",
+							"value": "",
+							"description": "Subject name, usually <topic-name>-value or <topic-name>-key"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Retrieve latest subject schema (with metadata)",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{SCHEMA_REGISTRY_BASE_URL}}/subjects/:subject/versions/latest",
+					"host": [
+						"{{SCHEMA_REGISTRY_BASE_URL}}"
+					],
+					"path": [
+						"subjects",
+						":subject",
+						"versions",
+						"latest"
+					],
+					"variable": [
+						{
+							"key": "subject",
+							"value": "",
+							"description": "Subject name, usually <topic-name>-value or <topic-name>-key"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Retrieve subject schema of given version (with metadata)",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{SCHEMA_REGISTRY_BASE_URL}}/subjects/:subject/versions/:version",
+					"host": [
+						"{{SCHEMA_REGISTRY_BASE_URL}}"
+					],
+					"path": [
+						"subjects",
+						":subject",
+						"versions",
+						":version"
+					],
+					"variable": [
+						{
+							"key": "subject",
+							"value": "my-topic-value",
+							"description": "Subject name, usually <topic-name>-value or <topic-name>-key"
+						},
+						{
+							"key": "version",
+							"value": "1",
+							"description": "Schema version"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Retrieve latest subject schema (only schema)",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{SCHEMA_REGISTRY_BASE_URL}}/subjects/:subject/versions/latest/schema",
+					"host": [
+						"{{SCHEMA_REGISTRY_BASE_URL}}"
+					],
+					"path": [
+						"subjects",
+						":subject",
+						"versions",
+						"latest",
+						"schema"
+					],
+					"variable": [
+						{
+							"key": "subject",
+							"value": "",
+							"description": "Subject name, usually <topic-name>-value or <topic-name>-key"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Retrieve subject schema of given version (only schema)",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{SCHEMA_REGISTRY_BASE_URL}}/subjects/:subject/versions/:version/schema",
+					"host": [
+						"{{SCHEMA_REGISTRY_BASE_URL}}"
+					],
+					"path": [
+						"subjects",
+						":subject",
+						"versions",
+						":version",
+						"schema"
+					],
+					"variable": [
+						{
+							"key": "subject",
+							"value": "virtual-pack.create-virtual-pack-events-value",
+							"description": "Subject name, usually <topic-name>-value or <topic-name>-key"
+						},
+						{
+							"key": "version",
+							"value": "1",
+							"description": "Schema version"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Delete subject schema of given version",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "{{SCHEMA_REGISTRY_BASE_URL}}/subjects/:subject/versions/:version?permanent=false",
+					"host": [
+						"{{SCHEMA_REGISTRY_BASE_URL}}"
+					],
+					"path": [
+						"subjects",
+						":subject",
+						"versions",
+						":version"
+					],
+					"query": [
+						{
+							"key": "permanent",
+							"value": "false",
+							"description": "When \"true\" then hard delete, see also: https://docs.confluent.io/platform/current/schema-registry/schema-deletion-guidelines.html"
+						}
+					],
+					"variable": [
+						{
+							"key": "subject",
+							"value": "my-topic-value",
+							"description": "Subject name, usually <topic-name>-value or <topic-name>-key"
+						},
+						{
+							"key": "version",
+							"value": "1",
+							"description": "Schema version"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Delete subject completely",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "{{SCHEMA_REGISTRY_BASE_URL}}/subjects/:subject?permanent=false",
+					"host": [
+						"{{SCHEMA_REGISTRY_BASE_URL}}"
+					],
+					"path": [
+						"subjects",
+						":subject"
+					],
+					"query": [
+						{
+							"key": "permanent",
+							"value": "false"
+						}
+					],
+					"variable": [
+						{
+							"key": "subject",
+							"value": "",
+							"description": "Subject name, usually <topic-name>-value or <topic-name>-key"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Retrieve schema with given global ID",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{SCHEMA_REGISTRY_BASE_URL}}/schemas/ids/:id",
+					"host": [
+						"{{SCHEMA_REGISTRY_BASE_URL}}"
+					],
+					"path": [
+						"schemas",
+						"ids",
+						":id"
+					],
+					"variable": [
+						{
+							"key": "id",
+							"value": "1",
+							"description": "Global Schema ID"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Retrieve subject-version pairs with given global ID",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{SCHEMA_REGISTRY_BASE_URL}}/schemas/ids/:id/versions",
+					"host": [
+						"{{SCHEMA_REGISTRY_BASE_URL}}"
+					],
+					"path": [
+						"schemas",
+						"ids",
+						":id",
+						"versions"
+					],
+					"variable": [
+						{
+							"key": "id",
+							"value": "1",
+							"description": "Global Schema ID"
+						}
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"auth": {
+		"type": "basic",
+		"basic": [
+			{
+				"key": "username",
+				"value": "",
+				"type": "string"
+			},
+			{
+				"key": "password",
+				"value": "",
+				"type": "string"
+			}
+		]
+	},
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	]
+}
